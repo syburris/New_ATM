@@ -10,6 +10,8 @@ public class ATM_Take2 {
 
     public static void main(String[] args) {
 
+        User steven = new User();
+
 
 
     }
