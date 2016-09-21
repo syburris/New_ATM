@@ -4,18 +4,18 @@
 
 
 public class User {
-    String userName;
+    String name;
     String password;
     double balance;
 
-    public User(String userName, String password, double balance) {
-        this.userName = userName;
-        this.password = password;
-        this.balance = balance;
-    }
-
-
-    //    void setName(String newUserName) throws Exception {
+////    public User(String userName, String password, double balance) {
+////        this.userName = userName;
+////        this.password = password;
+////        this.balance = balance;
+////    }
+//
+//
+//        void setName(String newUserName) throws Exception {
 //        if (newUserName.isEmpty()) {
 //            throw new Exception("You must have a User Name!");
 //        } else {
@@ -36,10 +36,10 @@ public class User {
 //            password = newPassword;
 //        }
 //    }
-
-    String getPassword() {
-        return password;
-    }
+//
+//    String getPassword() {
+//        return password;
+//    }
 
 }
 
