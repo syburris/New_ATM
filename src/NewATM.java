@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * Created by stevenburris on 9/18/16.
  */
-public class ATM_Take2 {
+public class NewATM {
 
     static HashMap<String, User> users = new HashMap<>();
     static Scanner scanner = new Scanner(System.in);
@@ -14,58 +14,109 @@ public class ATM_Take2 {
 
         System.out.println("Welcome to the Iron Yard ATM!");
         System.out.println();
-        System.out.println("Please enter your username to log in:");
+        System.out.println("Please log in by entering your name");
         String name = scanner.nextLine();
-
-        //if name is empty, return to the top and ask to log in again
+        boolean loggedIn = false;
         if (name.isEmpty()) {
-            System.out.println("You must enter your username to log in!");
-            System.out.println();
             main(args);
-        }
-        else if (!users.containsKey(name)) {
+        } else if (!users.containsKey(name)) {
             System.out.println("You do not have an account, would you like to make one?");
-            System.out.println("Enter 1 to create an account or 2 to exit.");
+            System.out.println("Enter 1 to make an account or 2 to exit.");
             String createAccount = scanner.nextLine();
             if (createAccount.equalsIgnoreCase("1")) {
                 User newUser = new User();
-                users.put(name,newUser);
-                System.out.println("Please enter your desired password:");
-                String newPassword = scanner.nextLine();
-                users.get(name).password = newPassword;
-                System.out.println();
-
-            }
-        }
-
-        //if name is not part of the HashMap,
-        //ask to create account
-
-        if (users.get(name) == null) {
-            System.out.println("You are not in the system.");
-            System.out.println("Would you like to set up an account?");
-            System.out.println("Enter 1 to create account or 2 to exit.");
-            String openAccount = scanner.nextLine();
-            if (openAccount.equalsIgnoreCase("1")) {
                 System.out.println("Please enter your desired password");
-                String userPassword = scanner.nextLine();
-                User user = new User();
-                users.put(name,user);
-                System.out.println("Thank you for creating an account!");
-                System.out.println("You may now log in.");
+                String password = scanner.nextLine();
+                users.put(name, newUser);
+                newUser.name = name;
+                newUser.password = password;
+                newUser.balance = 100;
+                main(args);
+            } else {
                 main(args);
             }
-            else {
-                System.out.println("I'm sorry you have decided not to open an account.");
+        }
+        else if (users.containsKey(name)) {
+            System.out.println("Please enter your password:");
+            String userPassword = scanner.nextLine();
+            if (users.get(name).password.equals(userPassword)) {
+                loggedIn = true;
+                System.out.println("You have logged in!");
+            }
+            if (!users.get(name).password.equals(userPassword)) {
+                System.out.println("Your password is invalid!");
                 main(args);
             }
+        }
+        while (loggedIn) {
+            System.out.println();
+            System.out.printf("%s, please choose one of the following options:\n",users.get(name).name);
+            System.out.println();
+            System.out.println("1: Check my balance.");
+            System.out.println("2: Make a deposit.");
+            System.out.println("3: Make a withdrawal.");
+            System.out.println("4: Close my account.");
+            System.out.println("5: Administrative Options");
+            System.out.println("6: Log Out");
 
+            String options = scanner.nextLine();
+
+            switch (options) {
+
+                case "1":
+                    System.out.printf("%s, your current balance is $%s\n",users.get(name).name,users.get(name).balance);
+                    System.out.println("Would you like to make another transaction?");
+                    System.out.println("Enter 1 for yes or 2 for no:");
+                    String newTransaction = scanner.nextLine();
+                    if (!newTransaction.equalsIgnoreCase("1")){
+                        System.out.println("Have a nice day!");
+                        System.out.println();
+                        main(args);
+                    }
+                    break;
+
+                case "2":
+                    System.out.println("How much would you like to deposit?");
+                    double depo = scanner.nextDouble();
+                    users.get(name).balance = depo + users.get(name).balance;
+                    System.out.printf("%s, your new balance is $%s",users.get(name).name ,users.get(name).balance);
+                    System.out.println();
+                    System.out.println("Would you like to make another transaction?");
+                    System.out.println();
+                    System.out.println("Enter 1 for yes or 2 to log out.");
+                    String newTransaction1 = scanner.nextLine();
+                    scanner.nextLine();
+                    if (!newTransaction1.equalsIgnoreCase("1")){
+                        System.out.println("Have a nice day!");
+                        System.out.println();
+                        main(args);
+                    }
+                    break;
+
+                case "3":
+                    System.out.println("How much would you like to withdrawal?");
+                    double withdrawal = scanner.nextDouble();
+                    users.get(name).balance = users.get(name).balance - withdrawal;
+                    System.out.printf("%s, your new balance is $%s",users.get(name).name ,users.get(name).balance);
+                    System.out.println();
+                    System.out.println("Would you like to make another transaction?");
+                    System.out.println();
+                    System.out.println("Enter 1 for yes or 2 to log out.");
+                    String newTransaction2 = scanner.nextLine();
+                    scanner.nextLine();
+                    if (!newTransaction2.equalsIgnoreCase("1")){
+                        System.out.println("Have a nice day!");
+                        System.out.println();
+                        main(args);
+                    }
+                    break;
+            }
 
         }
-//        User user = new User("Steven", "1234", 100);
-//        users.put(user.userName, user);
-//        System.out.println("Welcome to your ATM.");
-//        boolean logIn = true;
+
+
+
+    }
 //        while (logIn){
 //            System.out.println("Please enter your name.");
 //            String name = scanner.nextLine();
@@ -153,4 +204,4 @@ public class ATM_Take2 {
 //        }
 //    }
     }
-}
+
