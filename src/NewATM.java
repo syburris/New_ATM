@@ -8,7 +8,9 @@ public class NewATM {
     static HashMap<String, User> users = new HashMap<>();
     static Scanner scanner = new Scanner(System.in);
 
+
     public static void main(String[] args) {
+
 
         //print out welcome and ask for username
 
@@ -56,7 +58,7 @@ public class NewATM {
             System.out.println("2: Make a deposit.");
             System.out.println("3: Make a withdrawal.");
             System.out.println("4: Close my account.");
-            System.out.println("5: Administrative Options");
+            System.out.println("5: List all users and balances.");
             System.out.println("6: Log Out");
 
             String options = scanner.nextLine();
@@ -68,7 +70,7 @@ public class NewATM {
                     System.out.println("Would you like to make another transaction?");
                     System.out.println("Enter 1 for yes or 2 for no:");
                     String newTransaction = scanner.nextLine();
-                    if (!newTransaction.equalsIgnoreCase("1")){
+                    if (newTransaction.equalsIgnoreCase("2")){
                         System.out.println("Have a nice day!");
                         System.out.println();
                         main(args);
@@ -86,10 +88,12 @@ public class NewATM {
                     System.out.println("Enter 1 for yes or 2 to log out.");
                     String newTransaction1 = scanner.nextLine();
                     scanner.nextLine();
-                    if (!newTransaction1.equalsIgnoreCase("1")){
+                    if (newTransaction1.equalsIgnoreCase("2")){
                         System.out.println("Have a nice day!");
                         System.out.println();
-                        main(args);
+                        if (newTransaction1.equalsIgnoreCase("1")) {
+
+                        }
                     }
                     break;
 
@@ -104,12 +108,52 @@ public class NewATM {
                     System.out.println("Enter 1 for yes or 2 to log out.");
                     String newTransaction2 = scanner.nextLine();
                     scanner.nextLine();
-                    if (!newTransaction2.equalsIgnoreCase("1")){
+                    if (newTransaction2.equalsIgnoreCase("2")){
                         System.out.println("Have a nice day!");
                         System.out.println();
                         main(args);
                     }
                     break;
+
+                case "4" :
+                    System.out.printf("Are you sure you would like to close your account, %s?\n",users.get(name).name);
+                    System.out.println("Please enter 1 to close your account or 2 to make another transaction.");
+                    String response = scanner.nextLine();
+                    if (response.equalsIgnoreCase("1")) {
+                        System.out.printf("We're sorry to see you go, %s!\n", users.get(name).name);
+                        System.out.printf("Please take your $%s\n",users.get(name).balance);
+                        users.remove(name);
+                        main(args);
+                    }
+
+                case "5" :
+                    System.out.printf("Here are all of the currently registered users and their balances, %s .\n", name);
+                    ArrayList<User> userNames = new ArrayList<>();
+                    for (User user : userNames) {
+                        userNames.add(users.get(user.name));
+                    }
+                    int index = 0;
+                    for (User user :userNames) {
+                        System.out.println(userNames.get(index).name + " has a balance of $" + userNames.get(index).balance);
+                        index++;
+                    }
+
+                    System.out.println("Would you like to make another transaction?");
+                    System.out.println();
+                    System.out.println("Enter 1 for yes or 2 to log out.");
+                    String newTransaction3 = scanner.nextLine();
+                    scanner.nextLine();
+                    if (newTransaction3.equalsIgnoreCase("2")){
+                        System.out.println("Have a nice day!");
+                        System.out.println();
+                        main(args);
+                    }
+                    break;
+
+                case "6" :
+                    System.out.printf("Thank you for your business, %s", name);
+                    main(args);
+
             }
 
         }
